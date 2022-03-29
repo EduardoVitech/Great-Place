@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:great_place/providers/great_places/great_places.dart';
 import 'package:great_place/utils/app_routes/app_routes.dart';
+import 'package:provider/provider.dart';
 
 class PlacesListPage extends StatelessWidget {
   const PlacesListPage({Key? key}) : super(key: key);
@@ -18,10 +20,36 @@ class PlacesListPage extends StatelessWidget {
           ),
         ],
       ),
-      body: Center(
-        child: CircularProgressIndicator(
-          color: Colors.orange.shade800,
-        ),
+      body: FutureBuilder(
+        future: Provider.of<GreatPlaces>(context, listen: false).loadPlaces(),
+        builder: (ctx, snapshot) => snapshot.connectionState ==
+                ConnectionState.waiting
+            ? Center(
+                child: CircularProgressIndicator(
+                  backgroundColor: Colors.orange.shade800,
+                ),
+              )
+            : Consumer<GreatPlaces>(
+                child: const Center(
+                  child: Text(
+                    'Nenhum local cadastrado',
+                  ),
+                ),
+                builder: (ctx, greatPlaces, ch) => greatPlaces.itemsCount == 0
+                    ? ch as Widget
+                    : ListView.builder(
+                        itemCount: greatPlaces.itemsCount,
+                        itemBuilder: (ctx, i) => ListTile(
+                          leading: CircleAvatar(
+                            backgroundImage: FileImage(
+                              greatPlaces.itemByIndex(i).image,
+                            ),
+                          ),
+                          title: Text(greatPlaces.itemByIndex(i).title),
+                          onTap: () {},
+                        ),
+                      ),
+              ),
       ),
     );
   }

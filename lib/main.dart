@@ -18,6 +18,7 @@ class MyApp extends StatelessWidget {
       create: (ctx) => GreatPlaces(),
       child: MaterialApp(
         title: 'Great Place',
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primarySwatch: Colors.deepOrange,
           visualDensity: VisualDensity.adaptivePlatformDensity,
