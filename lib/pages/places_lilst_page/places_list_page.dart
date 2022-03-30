@@ -46,6 +46,10 @@ class PlacesListPage extends StatelessWidget {
                             ),
                           ),
                           title: Text(greatPlaces.itemByIndex(i).title),
+                          trailing: const Icon(
+                            Icons.star,
+                            color: Colors.amber,
+                          ),
                           onTap: () {},
                         ),
                       ),
