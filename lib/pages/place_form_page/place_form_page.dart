@@ -47,10 +47,20 @@ class _PlaceFormPageState extends State<PlaceFormPage> {
                 padding: const EdgeInsets.all(10),
                 child: Column(
                   children: <Widget>[
-                    TextField(
-                      controller: _titleController,
-                      decoration: const InputDecoration(
-                        labelText: 'Título',
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 25),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30),
+                        border: Border.all(
+                          width: 1.3,
+                          color: Colors.grey,
+                        ),
+                      ),
+                      child: TextField(
+                        controller: _titleController,
+                        decoration: const InputDecoration(
+                          labelText: 'Título',
+                        ),
                       ),
                     ),
                     const SizedBox(height: 10),

@@ -11,14 +11,6 @@ class PlacesListPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Meus Lugares'),
-        actions: <Widget>[
-          IconButton(
-            onPressed: () {
-              Navigator.of(context).pushNamed(AppRoutes.PLACE_FORM);
-            },
-            icon: const Icon(Icons.add),
-          ),
-        ],
       ),
       body: FutureBuilder(
         future: Provider.of<GreatPlaces>(context, listen: false).loadPlaces(),
@@ -39,21 +31,38 @@ class PlacesListPage extends StatelessWidget {
                     ? ch as Widget
                     : ListView.builder(
                         itemCount: greatPlaces.itemsCount,
-                        itemBuilder: (ctx, i) => ListTile(
-                          leading: CircleAvatar(
-                            backgroundImage: FileImage(
-                              greatPlaces.itemByIndex(i).image,
+                        itemBuilder: (ctx, i) => Padding(
+                          padding: const EdgeInsets.only(top: 15),
+                          child: ListTile(
+                            leading: CircleAvatar(
+                              radius: 40,
+                              backgroundImage: FileImage(
+                                greatPlaces.itemByIndex(i).image,
+                              ),
                             ),
+                            title: Text(
+                              greatPlaces.itemByIndex(i).title,
+                              style: const TextStyle(
+                                fontSize: 20,
+                              ),
+                            ),
+                            trailing: const Icon(
+                              Icons.arrow_forward_ios_outlined,
+                              color: Colors.grey,
+                              size: 20,
+                            ),
+                            onTap: () {},
                           ),
-                          title: Text(greatPlaces.itemByIndex(i).title),
-                          trailing: const Icon(
-                            Icons.star,
-                            color: Colors.amber,
-                          ),
-                          onTap: () {},
                         ),
                       ),
               ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.of(context).pushNamed(AppRoutes.PLACE_FORM);
+        },
+        backgroundColor: Colors.deepOrange,
+        child: const Icon(Icons.add),
       ),
     );
   }
